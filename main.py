@@ -15,25 +15,23 @@ from apsp import *
 
 if __name__ == '__main__':
 
-
-  args = parse_args()
-  directed = args.d
   ######################################################
   # Parameters to setup
   ######################################################
+  args = parse_args()
+  directed = args.d
   input_file_path = args.i
   n_k = args.k + 1
   sk = ''
-
   if n_k > 100:
     sk = 'max'
   else:
     sk = str(args.k)
-
   per_step = args.p
 
-	######################################################
-	# Do experiments
+  ######################################################
+  # Load a network
+  ######################################################
   if (args.r == True):
     A = load_networks(input_file_path)
     print(f'# {input_file_path} loading completed.')
@@ -41,10 +39,13 @@ if __name__ == '__main__':
     A, n, m = load_networkx_pickle(input_file_path)
     print(f'# Nodes [{input_file_path}]: {n}')
     print(f'# Edges [{input_file_path}]: {m}')
-  
+
   if is_disconnected_graph(A.tolist()):
     print(f'# {input_file_path} is disconnected graph.')
 
+  ######################################################
+  # Do experiments
+  ######################################################
   runtimes = []
   if (args.m == 'i'): 
     print(f'# compute I-AORM [{input_file_path}]: {sk}-order')
@@ -117,18 +118,23 @@ if __name__ == '__main__':
       G = nx.from_pandas_adjacency(pd.DataFrame(A), create_using=nx.DiGraph)
     else:
       G = nx.from_pandas_adjacency(pd.DataFrame(A))
-
     G.name = input_file_path
     print(nx.info(G))
+    runtimes.clear()
+    if per_step == True:
+      for i in pit(range(1, n_k), color = 'cyan'):
+        start = time.perf_counter()
+        path = dict(nx.all_pairs_shortest_path(G, i))
+        finish = time.perf_counter()
+        runtime = round(finish-start, 3)
+        runtimes.append(runtime)
+      print(f'# Incremental NX APSP [{input_file_path}, k={n_k-1}]: {runtimes} secs')
+    else:
+      start = time.perf_counter()
+      path = dict(nx.all_pairs_shortest_path(G))
+      finish = time.perf_counter()
+      runtime = round(finish-start, 3)
+      runtimes.append(runtime)
+      print(f'# NX APSP [{input_file_path}]: {runtimes} secs')
 
-    n = G.number_of_nodes()
-    e = G.number_of_edges()    
-    print(f'# Data [{input_file_path}] - Nodes: {n}, Edges: {e}')
 
-    runtimes = []
-    start = time.perf_counter()
-    path = dict(nx.all_pairs_shortest_path(G))
-    finish = time.perf_counter()
-    runtime = round(finish-start, 3)
-    runtimes.append(runtime)
-    print(f'# NX APSP [{input_file_path}]: {runtimes} secs')
