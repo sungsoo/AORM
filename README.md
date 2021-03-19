@@ -19,6 +19,23 @@ pip install -r requirements.txt
 
 ## Run
 
+### Basic arguments
+```
+$ python main.py --help
+usage: main.py [-h] [-m [M]] [-i [I]] [-p P] [-k [K]] [-r R] [-d D]
+
+AORM: Arbitrary-order reachability matrix framework
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -m [M]      Methods (i: i-aorm, m: m-aorm, v: v-bfs, , x: NetworkX, p: p-sm)
+  -i [I]      Input graph file path
+  -p P        Incremental computations per step unit
+  -k [K]      Reachability constraints (k-order)
+  -r R        Real-world network experiment
+  -d D        Directed (True) or undirected (False)
+```
+
 ### Synthetic networks
 #### P-SM
 ```
