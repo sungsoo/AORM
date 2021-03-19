@@ -28,17 +28,18 @@ if __name__ == '__main__':
   else:
     sk = str(args.k)
   per_step = args.p
+  # print(f'# args.o: {args.o}')
+  
 
   ######################################################
   # Load a network
   ######################################################
   if (args.r == True):
-    A = load_networks(input_file_path)
-    print(f'# {input_file_path} loading completed.')
+    A, n, m = load_networks(input_file_path)
+    print(f'# [{input_file_path}]- |N|: {n}, |E|: {m}')
   else:
     A, n, m = load_networkx_pickle(input_file_path)
-    print(f'# Nodes [{input_file_path}]: {n}')
-    print(f'# Edges [{input_file_path}]: {m}')
+    print(f'# [{input_file_path}]- |N|: {n}, |E|: {m}')
 
   if is_disconnected_graph(A.tolist()):
     print(f'# {input_file_path} is disconnected graph.')
@@ -62,6 +63,9 @@ if __name__ == '__main__':
       finish = time.perf_counter() 
       i_aorm_time = round(finish-start, 3)
       runtimes.append(i_aorm_time)
+    if (args.o == True):
+      print('# All-pairs shortest paths distance matrix')
+      print(D)
     print(f'# I-AORM completed [{input_file_path}]: {sk}-order, {runtimes} secs')    
   elif (args.m == 'm'):
     runtimes.clear()
@@ -79,7 +83,10 @@ if __name__ == '__main__':
       D = apsp_AormIterator(A, k=-1, method = 'matmult') 
       finish = time.perf_counter()
       p_aorm_time = round(finish-start, 3)
-      runtimes.append(p_aorm_time)    
+      runtimes.append(p_aorm_time)
+    if (args.o == True):
+      print('# All-pairs shortest paths distance matrix')
+      print(D)          
     print(f'# M-AORM completed [{input_file_path}]: {sk}-order, {runtimes} secs' )    
   elif (args.m == 'v'):
     runtimes.clear()
@@ -99,6 +106,9 @@ if __name__ == '__main__':
         finish = time.perf_counter()
         v_bfs_time = round(finish-start, 3)
         runtimes.append(v_bfs_time)
+    if (args.o == True):
+      print('# All-pairs shortest paths distance matrix')
+      print(D)
     print(f"# V-BFS [{input_file_path}, k={n_k-1}]: {runtimes}")    
   elif (args.m == 'p'):
     runtimes.clear()
@@ -112,6 +122,9 @@ if __name__ == '__main__':
       finish = time.perf_counter()
       p_sm_time = round(finish-start, 3)
       runtimes.append(p_sm_time)
+    if (args.o == True):
+      print('# All-pairs shortest paths distance matrix')
+      print(D)      
       print(f"# P-SM [{input_file_path}, k={n_k-1}]: {runtimes}")       
   elif (args.m == 'x'):
     if (directed):
@@ -136,5 +149,3 @@ if __name__ == '__main__':
       runtime = round(finish-start, 3)
       runtimes.append(runtime)
       print(f'# NX APSP [{input_file_path}]: {runtimes} secs')
-
-

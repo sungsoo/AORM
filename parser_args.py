@@ -8,5 +8,6 @@ def parse_args():
   parser.add_argument('-r', type=bool, default=False, help='Real-world network experiment')
   parser.add_argument('-d', type=bool, default=False, help='Directed (True) or undirected (False)')
   parser.add_argument('-p', type=bool, default=False, help='Computations per step unit')
+  parser.add_argument('-o', type=bool, default=False, help='Print out the distance matrix')
 
   return parser.parse_args()

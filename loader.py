@@ -54,8 +54,8 @@ def load_networks(filepath):
 
     A = df2.values
     A = np.array(A, dtype=float)
-    
-    return A  
+    n, e = len(A), np.count_nonzero(A)
+    return A, n, e  
 
 def preprocess(input_file_path):  
     delimiter = get_delimiter(input_file_path)

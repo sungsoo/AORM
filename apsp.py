@@ -39,7 +39,7 @@ def apsp_bfs_queue(A): # All-pair shortest path with BFS using Queue and adjacen
     return D
 
 def apsp_bfs_matrix(A): # All-pair shortest path with BFS using Array Operations on adjacency matrix
-    A = A.astype(np.int8)
+    A = A.astype(np.float)
     n_nodes = len(A)
     D = A.copy()
     for node in tqdm(range(n_nodes)): # bfs for each node
