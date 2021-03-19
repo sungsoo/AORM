@@ -1,6 +1,6 @@
 # AORM: Arbitrary-Order Reachability Matrix
 
-This folder contains the code and data of our AORM framework
+This folder contains the code and data of our AORM framework.
 
 ![](./images/aorm-architecture.png)
 
