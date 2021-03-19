@@ -2,6 +2,8 @@
 
 This folder contains the code and data of our AORM framework
 
+![](./images/aorm-architecture.png)
+
 ## Folder structure:
 
 * datasets: including synthetic and real-world dataset used in our experiments
