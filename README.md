@@ -11,4 +11,4 @@ This folder contains the code and data of our AORM framework
 
 ## Requirements
 
-Python 3.7, Numpy 1.16.3, argparse and so on. (Refer to requirements.txt)
+Python 3.7, Numpy 1.16.3, argparse and so on. (refer to requirements.txt)
