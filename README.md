@@ -36,6 +36,7 @@ optional arguments:
   -k [K]      Reachability constraints (k-order)
   -r R        Real-world network experiment
   -d D        Directed (True) or undirected (False)
+  -o O        Print out the distance matrix  
 ```
 
 ### Synthetic networks
